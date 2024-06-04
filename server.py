@@ -5,8 +5,7 @@ import threading
 from connect4 import Connect4
 
 class Connect4Server:
-    """Server class for Connect 4 game.
-    """
+    """Server class for Connect 4 game."""
     def __init__(self, host='localhost', port=12345) -> None:
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_socket.bind((host, port))
@@ -81,8 +80,7 @@ class Connect4Server:
         return board_str
 
     def start(self) -> None:
-        """Start the server.
-        """
+        """Start the server."""
         print("Server is running and waiting for connections...")
         while len(self.clients) < 2:
             client_socket, addr = self.server_socket.accept()

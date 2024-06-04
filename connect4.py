@@ -1,6 +1,5 @@
 class Connect4:
-    """Connect 4 game class.
-    """
+    """Connect 4 game class."""
     ROWS = 6
     COLS = 7
     
@@ -9,8 +8,7 @@ class Connect4:
         self.current_player = 'X'
 
     def print_board(self) -> None:
-        """Print the game board.
-        """
+        """Print the game board."""
         for row in self.board:
             print('|'.join(row))
             print('-' * self.COLS)
@@ -50,8 +48,7 @@ class Connect4:
         self.board[row][col] = self.current_player
 
     def switch_player(self) -> None:
-        """Switch the current player.
-        """
+        """Switch the current player."""
         self.current_player = 'O' if self.current_player == 'X' else 'X'
 
     def winning_move(self) -> bool:

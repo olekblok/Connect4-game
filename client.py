@@ -4,8 +4,7 @@ import socket
 import threading
 
 class Connect4Client:
-    """Client class for Connect 4 game.
-    """
+    """Client class for Connect 4 game."""
     def __init__(self, host='localhost', port=12345) -> None:
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.client_socket.connect((host, port))
@@ -15,13 +14,12 @@ class Connect4Client:
         """Send message to server.
 
         Args:
-            message (_type_): _description_
+            message (str): String message to send to server.
         """
         self.client_socket.send(message.encode('utf-8'))
 
     def receive_messages(self) -> None:
-        """Receive messages from server.
-        """
+        """Receive messages from server."""
         while True:
             try:
                 message = self.client_socket.recv(1024).decode('utf-8')

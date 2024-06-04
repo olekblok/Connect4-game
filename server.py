@@ -5,7 +5,9 @@ import threading
 from connect4 import Connect4
 
 class Connect4Server:
-    def __init__(self, host='localhost', port=12345):
+    """Server class for Connect 4 game.
+    """
+    def __init__(self, host='localhost', port=12345) -> None:
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_socket.bind((host, port))
         self.server_socket.listen(2)  # We need only two clients
@@ -14,7 +16,13 @@ class Connect4Server:
         self.game = Connect4()
         self.turn = 0  # Track which player's turn it is
 
-    def handle_client(self, client_socket, player):
+    def handle_client(self, client_socket, player) -> None:
+        """Handle client connection.
+
+        Args:
+            client_socket (socket): Client socket.
+            player (int): Player number.
+        """
         try:
             while True:
                 message = client_socket.recv(1024).decode('utf-8')
@@ -48,21 +56,33 @@ class Connect4Server:
             self.game = Connect4()  # Reset the game
             print(f"Client {player + 1} disconnected")
 
-    def broadcast(self, message):
+    def broadcast(self, message) -> None:
+        """Broadcast message to all clients.
+
+        Args:
+            message (str): Message to broadcast.
+        """
         for client in self.clients:
             try:
                 client.send(message.encode('utf-8'))
             except BrokenPipeError:
                 pass
 
-    def game_board_to_string(self):
+    def game_board_to_string(self) -> str:
+        """Convert game board to string.
+
+        Returns:
+            str: Board string.
+        """
         board_str = ""
         for row in self.game.board:
             board_str += '|'.join(row) + "\n"
         board_str += ' '.join([str(i) for i in range(self.game.COLS)])
         return board_str
 
-    def start(self):
+    def start(self) -> None:
+        """Start the server.
+        """
         print("Server is running and waiting for connections...")
         while len(self.clients) < 2:
             client_socket, addr = self.server_socket.accept()
